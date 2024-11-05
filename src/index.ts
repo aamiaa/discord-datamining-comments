@@ -71,7 +71,13 @@ async function main() {
 		})
 		if(commentMsg) {
 			console.log(commentMsg)
-			// TODO: post comment
+			
+			await octokit.request("POST /repos/{owner}/{repo}/commits/{commit_sha}/comments", {
+				owner: "Discord-Datamining",
+				repo: "Discord-Datamining",
+				commit_sha: current.sha,
+				body: commentMsg
+			})
 		}
 
 		setLastHash(current.build_hash)
