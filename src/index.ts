@@ -65,6 +65,14 @@ async function main() {
 		}
 
 		const diff = res.data.data as BuildDiff
+		// Temp fix for "PlayStation" <-> "Playstation" spam
+		{
+			const idx = diff.strings_diff.findIndex(x => x.key === "PLAYSTATION")
+			if(idx !== -1) {
+				diff.strings_diff.splice(idx, 1)
+			}
+		}
+
 		const commentMsg = formatMessage(diff, {
 			strings: true,
 			experiments: true
