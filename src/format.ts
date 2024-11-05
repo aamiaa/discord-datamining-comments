@@ -20,7 +20,7 @@ export default function formatMessage(diff: BuildDiff, options: {strings?: boole
 			stringParts.push("# Removed\n" + added.map(x => `- ${x.key}: "${x.value}"`).join("\n"))
 		}
 
-		mainParts.push("```diff\n" + stringParts.join("\n\n") + "```")
+		mainParts.push("## Strings\n```diff\n" + stringParts.join("\n\n") + "```")
 	}
 
 	if(options.endpoints && diff.endpoints_diff.length > 0) {
