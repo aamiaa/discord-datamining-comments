@@ -17,7 +17,7 @@ export default function formatMessage(diff: BuildDiff, options: {strings?: boole
 			stringParts.push("# Updated\n" + changed.map(x => `- ${x.key}: "${x.old_value}"\n+ ${x.key}: "${x.value}"`).join("\n"))
 		}
 		if(removed.length > 0) {
-			stringParts.push("# Removed\n" + added.map(x => `- ${x.key}: "${x.value}"`).join("\n"))
+			stringParts.push("# Removed\n" + removed.map(x => `- ${x.key}: "${x.value}"`).join("\n"))
 		}
 
 		mainParts.push("## Strings\n```diff\n" + stringParts.join("\n\n") + "```")
