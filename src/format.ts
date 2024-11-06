@@ -83,7 +83,7 @@ export default function formatMessage(diff: BuildDiff, options: {strings?: boole
 			}
 			if(removedTreatments.length > 0) {
 				changes.push(
-					"# New Treatments\n" +
+					"# Removed Treatments\n" +
 					removedTreatments.map(x => "- Treatment " + x.id + ": " + x.label).join("\n")
 				)
 			}
