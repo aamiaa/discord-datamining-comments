@@ -11,13 +11,13 @@ export default function formatMessage(diff: BuildDiff, options: {strings?: boole
 		const removed = diff.strings_diff.filter(x => x.type === BuildDiffType.REMOVED)
 
 		if(added.length > 0) {
-			stringParts.push("# Added\n" + added.map(x => `+ ${x.key}: "${x.value}"`).join("\n"))
+			stringParts.push("# Added\n" + added.map(x => `+ ${x.key}: ${JSON.stringify(x.value)}`).join("\n"))
 		}
 		if(changed.length > 0) {
-			stringParts.push("# Updated\n" + changed.map(x => `- ${x.key}: "${x.old_value}"\n+ ${x.key}: "${x.value}"`).join("\n"))
+			stringParts.push("# Updated\n" + changed.map(x => `- ${x.key}: ${JSON.stringify(x.old_value)}\n+ ${x.key}: ${JSON.stringify(x.value)}`).join("\n"))
 		}
 		if(removed.length > 0) {
-			stringParts.push("# Removed\n" + removed.map(x => `- ${x.key}: "${x.value}"`).join("\n"))
+			stringParts.push("# Removed\n" + removed.map(x => `- ${x.key}: ${JSON.stringify(x.value)}`).join("\n"))
 		}
 
 		mainParts.push("## Strings\n```diff\n" + stringParts.join("\n\n") + "\n```")
