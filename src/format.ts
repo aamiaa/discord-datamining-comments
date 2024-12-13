@@ -66,7 +66,7 @@ export default function formatMessage(diff: BuildDiff, options: {strings?: boole
 			const removedTreatments = change.old_value.treatments.filter(x => !change.value.treatments.find(y => y.id === x.id))
 			const updatedTreatments: {old: ASTExperiment["treatments"][0], new: ASTExperiment["treatments"][0]}[] = []
 			change.value.treatments.forEach(x => {
-				let old = change.value.treatments.find(y => y.id === x.id)
+				let old = change.old_value.treatments.find(y => y.id === x.id)
 				if(old && old.label !== x.label) {
 					updatedTreatments.push({
 						old,
