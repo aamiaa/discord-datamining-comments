@@ -65,11 +65,13 @@ async function main() {
 		}
 
 		const diff = res.data.data as BuildDiff
-		// Temp fix for "PlayStation" <-> "Playstation" spam
+		// Temp fix for the intl race condition spam
 		{
-			const idx = diff.strings_diff.findIndex(x => x.key === "PLAYSTATION")
-			if(idx !== -1) {
-				diff.strings_diff.splice(idx, 1)
+			for(const key of ["PLAYSTATION", "TITLE", "DESCRIPTION"]) {
+				const idx = diff.strings_diff.findIndex(x => x.key === key)
+				if(idx !== -1) {
+					diff.strings_diff.splice(idx, 1)
+				}
 			}
 		}
 
