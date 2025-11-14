@@ -65,16 +65,6 @@ async function main() {
 		}
 
 		const diff = res.data.data as BuildDiff
-		// Temp fix for the intl race condition spam
-		{
-			for(const key of ["PLAYSTATION", "IR0Bf3"]) {
-				const idx = diff.strings_diff.findIndex(x => x.key === key)
-				if(idx !== -1) {
-					diff.strings_diff.splice(idx, 1)
-				}
-			}
-		}
-
 		const commentMsg = formatMessage(diff, {
 			strings: true,
 			experiments: true
