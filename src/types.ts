@@ -1,7 +1,8 @@
 export interface BuildDiff {
 	strings_diff: BuildStringDiff[],
 	endpoints_diff: BuildEndpointDiff[],
-	experiments_diff: BuildExperimentDiff[]
+	experiments_diff: BuildExperimentDiff[],
+	apex_experiments_diff: BuildApexExperimentDiff[]
 }
 
 export interface BuildString {
@@ -30,11 +31,14 @@ export interface BuildEndpointDiff extends BuildEndpoint {
 	old_path?: string
 }
 
-export interface BuildExperimentDiff {
+interface BuildObjectDiff<T> {
 	type: BuildDiffType,
-	value: ASTExperiment
-	old_value?: ASTExperiment
+	value: T
+	old_value?: T
 }
+
+export type BuildExperimentDiff = BuildObjectDiff<ASTExperiment>
+export type BuildApexExperimentDiff = BuildObjectDiff<ASTApexExperiment>
 
 export interface ASTExperiment {
 	kind: ExperimentType,
@@ -44,6 +48,12 @@ export interface ASTExperiment {
 		id: number,
 		label: string
 	}[]
+}
+
+export interface ASTApexExperiment {
+	name: string,
+	kind: ExperimentType,
+	variations: Record<number, Record<string, number | string | boolean>>
 }
 
 export enum ExperimentType {

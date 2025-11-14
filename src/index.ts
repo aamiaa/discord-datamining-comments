@@ -67,7 +67,8 @@ async function main() {
 		const diff = res.data.data as BuildDiff
 		const commentMsg = formatMessage(diff, {
 			strings: true,
-			experiments: true
+			experiments: true,
+			apex_experiments: true
 		})
 		if(commentMsg) {
 			console.log(commentMsg)
