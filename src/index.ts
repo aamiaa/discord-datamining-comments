@@ -1,5 +1,4 @@
 const { Octokit } = await import("@octokit/core")
-import axios from "axios"
 import "dotenv/config"
 import fs from "fs"
 import formatMessage from "./format.js"
@@ -55,16 +54,17 @@ async function main() {
 
 		console.log("Previous:", previous.build_hash, "current:", current.build_hash)
 
-		const res = await axios.get(`https://nelly.tools/api/private/builds/app/diff/${previous.build_hash}/${current.build_hash}`, {
+		const res = await fetch(`https://nelly.tools/api/private/builds/app/diff/${previous.build_hash}/${current.build_hash}`, {
 			headers: {
 				Authorization: process.env.NELLY_API_KEY
 			}
 		})
-		if(!res.data.success) {
-			throw new Error(res.data.error)
+		const json = await res.json()
+		if(!json.success) {
+			throw new Error(json.error)
 		}
 
-		const diff = res.data.data as BuildDiff
+		const diff = json.data as BuildDiff
 		const commentMsg = formatMessage(diff, {
 			strings: true,
 			experiments: true,
